@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Renamer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>File Renamer</h1>
+            <p>Batch rename files with ease.</p>
+        </header>
+
+        <main>
+            <section class="config-section">
+                <div class="input-group">
+                    <label for="directory-path">Directory Path</label>
+                    <div class="path-input-wrapper">
+                        <button id="select-folder-btn" class="secondary-btn" title="Select Folder"
+                            style="padding: 10px 14px;">📂</button>
+                        <input type="text" id="directory-path" placeholder="/Users/username/Documents/Photos">
+                        <button id="load-btn" class="primary-btn">Load Files</button>
+                    </div>
+                </div>
+
+                <div class="rules-container">
+                    <div class="rules-header">
+                        <h2>Renaming Rules</h2>
+                        <button id="add-rule-btn" class="secondary-btn">+ Add Rule</button>
+                    </div>
+                    <div id="rules-list" class="rules-list">
+                        <!-- Rules will be added here dynamically -->
+                        <div class="empty-state">No rules added yet.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="preview-section">
+                <div class="preview-header">
+                    <h2>Preview</h2>
+                    <div class="actions">
+                        <span id="stats">0 files loaded</span>
+                        <button id="rename-btn" class="primary-btn danger" disabled>Rename Files</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Original Name</th>
+                                <th>New Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>Confirm Rename</h3>
+            <p>Are you sure you want to rename these files? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="cancel-rename-btn" class="secondary-btn">Cancel</button>
+                <button id="confirm-rename-btn" class="primary-btn danger">Yes, Rename Files</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates for Rules -->
+    <template id="rule-template">
+        <div class="rule-card">
+            <div class="rule-header">
+                <select class="rule-type-select">
+                    <option value="replace">Replace Text</option>
+                    <option value="new_name">New Name</option>
+                    <option value="prepend">Prepend Text</option>
+                    <option value="append">Append Text</option>
+                    <option value="counter">Counter</option>
+                    <option value="extension">Change Extension</option>
+                </select>
+                <button class="remove-rule-btn">&times;</button>
+            </div>
+            <div class="rule-body">
+                <!-- Dynamic content based on type -->
+            </div>
+        </div>
+    </template>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
